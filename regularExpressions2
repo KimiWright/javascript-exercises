@@ -1,0 +1,10 @@
+function userName(str){
+   var re = /^[a-z]+[_][0-9]{2}$/i;//+ means however many in a row
+   return re.test(str);
+}
+function searchPrice(str){
+  var x = /\$[0-9]+/.exec(str);
+  return x[0];
+}
+console.log(searchPrice("The $40000 raspberry pi cost $35 at the store."));
+console.log(userName("george_"));
