@@ -1,0 +1,18 @@
+function zipCode(str){
+  re = /^[0-9]{5}$/i; //{5} means 5 in a row, checks in chunks,/[0-9]{5}[a]/i will return false for 55555ya and /[0-9]{5}[a]?/i will return true
+  return re.test(str);
+}
+function whiteSpace(str){
+  //return str.search(/ /i);
+  return / /i.test(str);
+}
+function socialSecurityNumber(str){
+  /*if(str[3]=='-'&& str[6]=='-' && /[^0-9-]/i.test(str)===false && str.length==11){
+    return true;
+  }else{
+    return false;
+  }*/
+  return /^[0-9]{3}[-][0-9]{2}[-][0-9]{4}$/i.test(str);
+}
+console.log(socialSecurityNumber("740-55-555a"));
+console.log(zipCode("74055"))
