@@ -1,0 +1,11 @@
+function noDuplicates(phrase){
+  dup="yes";
+  list=phrase.split(" ");
+  for(i=0;i<=list.length;i++){
+    for(x=0;x<=list.length;x++){
+      if(x!=i){if(list[i]==list[x]){dup="no";}}
+    }
+  }
+  return dup;
+}
+noDuplicates("THE RAIN IN SPAIN");
