@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <canvas id="snake" width="400" height="400"></canvas>
+    <script>
+    //GOBAL VARIABLES DON'T USE VAR!!!!!!!!!!!!!!!!!!!!
+window.onload=function(){
+canvas=document.getElementById("snake");
+pen=canvas.getContext("2d");
+  document.addEventListener("keydown",keyPush);
+  //milliseconds per frame. 1000/(frames per second)
+  run=setInterval(game,1000/15);
+};
+// define the player x and y positions
+player_x=10;player_y=10;
+//make a grid to put boxes in
+gridSize=20;
+tileCount=20;
+//player speed
+x_speed=0;
+y_speed=0;
+//apple location
+apple_x=15;
+apple_y=15;
+//stores starting pieces
+trail=[];
+//starting length
+tail=5;
+lives=20;
+score=[0]
+t=true;
+rand=5;
+plusl=9;
+dragon=8;
+poison=0.01;
+//flame_x=0;
+function flame(m){var v=1; flame_x+=v; y=m*flame_x-m*apple_x*gridSize+apple_y*gridSize;pen.fillStyle="orange";pen.fillRect(flame_x,y,10,10);}
+spark=[]
+mph=7
+
+/*function ignite(){
+  spark.push({x:apple_x*gridSize,y:apple_y*gridSize})
+}*/
+
+
+//game logic
+function game(){
+  //update player positions
+  player_x+=x_speed;
+  player_y+=y_speed;
+  //detecting bonundaries
+  if(player_x<0){player_x=tileCount-1;lives--}
+  if(player_x>tileCount-1){player_x=0;lives--}
+  if(player_y>tileCount-1){player_y=0;lives--}
+   if(player_y<0){player_y=tileCount-1;lives--}
+  //creak black background
+  pen.fillStyle="black";
+  pen.fillRect(0,0,canvas.width,canvas.height);
+  //lives
+pen.fillStyle="white";
+pen.font=75+"px Times New Roman";
+pen.fillText(Math.floor(lives).toString()+" lives", 5,80);
+    //update player 
+      pen.fillStyle="yellow";
+    for(var i=0;i<trail.length;i++){pen.fillRect(trail[i].x*gridSize, trail[i].y*gridSize,gridSize-2,gridSize-2);
+      if(trail[i].x==player_x && trail[i].y==player_y && t===false){score.push(tail);tail=5;player_x=10;player_y=10;lives--}
+    }
+    
+    trail.push({x:player_x,y:player_y});
+    while(trail.length>tail){trail.shift()}
+  //dectect apple collision
+  
+  if(apple_x==player_x && apple_y==player_y)
+  {if(rand<plusl){tail++}
+  if(rand>=plusl){lives++}apple_x=Math.floor(Math.random()*tileCount);apple_y=Math.floor(Math.random()*tileCount);rand=Math.floor(Math.random()*10);flame_x=apple_x*gridSize;}
+  //draw the apple
+  
+
+  if(rand<dragon){pen.fillStyle="maroon"}
+  if(rand>=dragon && rand<plusl){lives-=poison;
+  //flame(2);
+ function ignite(){ spark.push({x:apple_x*gridSize,y:apple_y*gridSize});}
+ setInterval(ignite,1000*10)
+  for(var s=0; s<spark.length;s++){
+    spark[s].x+=mph
+    m=2
+    //y=m*flame_x-m*apple_x*gridSize+apple_y*gridSize;
+    pen.fillStyle="orange";
+    //console.log(spark[s]);console.log['y'+y]
+    ;pen.fillRect(spark[s].x,spark[s].y,5,5);
+  }
+  pen.fillStyle="lime"}
+  if(rand>=plusl){pen.fillStyle="indigo"}
+
+  pen.fillRect(apple_x*gridSize,apple_y*gridSize,gridSize,gridSize);
+  //death
+  if(lives<=0){clearInterval(run); 
+  pen.fillRect(0,0,canvas.width,canvas.height); pen.fillStyle="gray"; pen.fillText("GAME",74,100);pen.fillText("OVER!",70,200);pen.fillText("Score: "+Math.max(...score).toString(),60,300);}
+}
+
+//keyboard
+function keyPush(evt){
+  switch(evt.keyCode){
+    case 37://left arrow
+      if(x_speed!=1){
+      x_speed=-1;
+      y_speed=0;}
+      t=false;
+      break;
+    case 38://up arrow, remember the graph is inverted
+      if(y_speed!=1){
+      x_speed=0;
+      y_speed=-1;}
+      t=false;
+      break;
+    case 39://right arrow
+      if(x_speed!=-1){
+      x_speed=1;
+      y_speed=0;}
+      t=false;
+      break;
+    case 40://down arrow
+      if(y_speed!=-1){
+      x_speed=0;
+      y_speed=1;}
+      t=false;
+      break;
+    case 82://r
+      //run=setInterval(game,1000/15);
+      console.log("run");
+      break;
+  }
+}
+
+    </script>
+  </body>
+</html>
