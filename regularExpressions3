@@ -1,0 +1,10 @@
+function countVowels(str){
+  var v=str.match(/[aeiouy]/g);
+  return v.length;
+}
+countVowels("eabcabcabce");
+function animalCount(str){
+  var v=/\b(dog)\b|\b(cat)\b|\b(chicken)\b/.test(str);
+  return v;
+}
+console.log(animalCount("chicken dg catdogdosgcatdcog"));
